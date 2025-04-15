@@ -12,7 +12,7 @@ const Footer = () => {
               <span>BiblioTech</span>
             </h5>
             <p className="text-muted">
-              Your digital library management system - discover, track, and enjoy books like never before.
+              Your digital library.Discover, track, and enjoy books like never before.
             </p>
             <div className="social-links">
               <a href="#" className="me-3 text-dark"><i className="bi bi-facebook"></i></a>

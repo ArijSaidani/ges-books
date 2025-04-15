@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, Dropdown, Image } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './Navigation.css';
@@ -57,10 +57,14 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/dashboard" className="me-2">Dashboard</Nav.Link>
               <Dropdown align="end">
                 <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center">
-                  <div className="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" 
-                       style={{ width: '30px', height: '30px', fontSize: '12px' }}>
-                    {getInitials()}
-                  </div>
+                  <Image
+                    src="/profile_img.jpg"
+                    alt="Profile"
+                    roundedCircle
+                    className="nav-profile-img me-2"
+                    width="32"
+                    height="32"
+                  />
                   <span className="d-none d-md-inline">{getUserName()}</span>
                 </Dropdown.Toggle>
 

@@ -82,7 +82,7 @@ const Home = () => (
     <div className="home-content">
       <h1 className="home-title">Welcome to <span className="highlight">BiblioTech</span></h1>
       <p className="home-subtitle">
-        Your comprehensive library management system. Discover new books, track your reading progress, 
+        Your digital library. Discover new books, track your reading progress, 
         and connect with other readers.
       </p>
     </div>

@@ -119,6 +119,16 @@
   transform: translateY(-2px);
 }
 
+.nav-profile-img {
+  object-fit: cover;
+  border: 2px solid var(--primary-lighter);
+  transition: transform 0.3s ease;
+}
+
+.dropdown-toggle:hover .nav-profile-img {
+  transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;

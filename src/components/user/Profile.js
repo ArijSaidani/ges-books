@@ -10,7 +10,7 @@ const Profile = () => {
     email: '',
     bio: '',
     favoriteGenres: [],
-    profilePicture: 'https://via.placeholder.com/150',
+    profilePicture: '/profile_img.jpg',
   });
   
   const [editing, setEditing] = useState(false);
@@ -26,7 +26,7 @@ const Profile = () => {
         email: currentUser.email || '',
         bio: currentUser.bio || 'I love reading science fiction and fantasy novels. Currently exploring classic literature.',
         favoriteGenres: currentUser.favoriteGenres || ['Science Fiction', 'Fantasy', 'Mystery'],
-        profilePicture: currentUser.profilePicture || 'https://via.placeholder.com/150',
+        profilePicture: currentUser.profilePicture || '/profile_img.jpg',
       });
     }
   }, [currentUser]);
