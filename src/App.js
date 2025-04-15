@@ -72,21 +72,21 @@ function App() {
 
 // Placeholder Components
 const Home = () => (
-  <Container className="py-5 text-center">
-    <h1 className="display-4 mb-4">Welcome to <span style={{ color: '#4B3D2D' }}>Liber</span>Hub</h1>
-    <p className="lead mb-5">
-      Your comprehensive library management system. Discover new books, track your reading progress, 
-      and connect with other readers.
-    </p>
-    <div className="py-5">
-      <img 
-        src="/placeholder-hero.png" 
-        alt="Library Management" 
-        className="img-fluid"
-        style={{ maxHeight: '400px', opacity: 0.8 }}
-      />
+  <div className="home-container">
+    <img 
+      src="/home_img.jpg" 
+      alt="Library Management" 
+      className="home-image"
+    />
+    <div className="home-overlay"></div>
+    <div className="home-content">
+      <h1 className="home-title">Welcome to <span className="highlight">BiblioTech</span></h1>
+      <p className="home-subtitle">
+        Your comprehensive library management system. Discover new books, track your reading progress, 
+        and connect with other readers.
+      </p>
     </div>
-  </Container>
+  </div>
 );
 
 const NotFound = () => (

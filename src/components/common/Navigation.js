@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import './Navigation.css';
 
 const Navigation = () => {
   const { currentUser, logout, isAuthenticated } = useAuth();
@@ -32,9 +33,15 @@ const Navigation = () => {
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm py-3" sticky="top">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold">
-          <span style={{ color: '#8B5B29' }}>Biblio</span>
-          <span style={{ color: '#4B3D2D' }}>Tech</span>
+        <Navbar.Brand as={Link} to="/" className="fw-bold d-flex align-items-center">
+          <img
+            src="/logo.png"
+            alt="BiblioTech Logo"
+            className="navbar-logo me-2"
+            width="40"
+            height="40"
+          />
+          <span className="brand-text">BiblioTech</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -50,7 +57,7 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/dashboard" className="me-2">Dashboard</Nav.Link>
               <Dropdown align="end">
                 <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center">
-                  <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2" 
+                  <div className="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" 
                        style={{ width: '30px', height: '30px', fontSize: '12px' }}>
                     {getInitials()}
                   </div>
