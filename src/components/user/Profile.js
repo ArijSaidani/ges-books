@@ -49,6 +49,7 @@ const Profile = () => {
       const result = await updateProfile({
         firstName: profile.firstName,
         lastName: profile.lastName,
+        email: profile.email,
         bio: profile.bio,
         favoriteGenres: profile.favoriteGenres,
       });
@@ -136,15 +137,16 @@ const Profile = () => {
                       </Col>
                     </Row>
                     <Form.Group className="mb-3">
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control
-                        type="email"
-                        name="email"
-                        value={profile.email}
-                        disabled
-                      />
-                      {editing && <Form.Text className="text-muted">Email cannot be changed</Form.Text>}
-                    </Form.Group>
+                    <Form.Label>Email</Form.Label>
+                     <Form.Control
+                     type="email"
+                     name="email"
+                     value={profile.email}
+                     onChange={handleChange}
+                     disabled={!editing}
+                     />
+                     
+                  </Form.Group>
                   </Col>
                 </Row>
                 
