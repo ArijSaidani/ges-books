@@ -4,8 +4,9 @@ import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-// Auth Context
+// Context Providers
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ForumProvider } from './contexts/ForumContext';
 
 // Common Components
 import Navigation from './components/common/Navigation';
@@ -16,6 +17,11 @@ import Login from './components/user/Login';
 import SignUp from './components/user/SignUp';
 import Profile from './components/user/Profile';
 import Dashboard from './components/user/Dashboard';
+
+// Forum Components
+import ForumHome from './components/forum/ForumHome';
+import CreatePost from './components/forum/CreatePost';
+import PostDetail from './components/forum/PostDetail';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -31,41 +37,53 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="d-flex flex-column min-vh-100">
-          <Navigation />
-          <main className="flex-grow-1">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              
-              {/* Protected Routes */}
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/profile" 
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* Fallback Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
+      <ForumProvider>
+        <Router>
+          <div className="d-flex flex-column min-vh-100">
+            <Navigation />
+            <main className="flex-grow-1">
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/forum" element={<ForumHome />} />
+                <Route path="/forum/post/:id" element={<PostDetail />} />
+                
+                {/* Protected Routes */}
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/forum/create" 
+                  element={
+                    <ProtectedRoute>
+                      <CreatePost />
+                    </ProtectedRoute>
+                  } 
+                />
+                
+                {/* Fallback Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </ForumProvider>
     </AuthProvider>
   );
 }
