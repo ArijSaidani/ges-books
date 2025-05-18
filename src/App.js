@@ -1,12 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // Context Providers
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ForumProvider } from './contexts/ForumContext';
+//manage users
+import ManageUsers from './components/user/ManageUsers';
 
 // Common Components
 import Navigation from './components/common/Navigation';
@@ -18,21 +20,27 @@ import SignUp from './components/user/SignUp';
 import Profile from './components/user/Profile';
 import Dashboard from './components/user/Dashboard';
 
-// Forum Components
-import ForumHome from './components/forum/ForumHome';
-import CreatePost from './components/forum/CreatePost';
-import PostDetail from './components/forum/PostDetail';
+// Book & Review Components
+import BookManagement from './components/BookManagement/BookManagement';
+import ReviewManagement from './components/ReviewManagement/ReviewManagement';
 
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-  
-  return children;
-};
+// Forum Components
+
+import CreatePost from './components/forum/CreatePost';
+
+
+import Forum from './components/forum/Forum';
+
+//stats component
+import Statistics from './components/stats/Statistics';
+
+// Auth Components
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import Unauthorized from './pages/Unauthorized';
+
+
+import AuthorsManagement from './components/authors/AuthorsManagement';
+import ComplaintsManagement from './components/reclamation/ComplaintsManagement';
 
 function App() {
   return (
@@ -47,10 +55,21 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/forum" element={<ForumHome />} />
-                <Route path="/forum/post/:id" element={<PostDetail />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/forum" element={<Forum />} />
+                <Route path="/statistics" element={<Statistics/>}/>
+                <Route path="/authors" element={<ProtectedRoute><AuthorsManagement /></ProtectedRoute>} />
+                <Route path="/complaints" element={<ProtectedRoute><ComplaintsManagement /></ProtectedRoute>} />
+                <Route 
+  path="/admin/users" 
+  element={
+    <ProtectedRoute requireAdmin={true}>
+      <ManageUsers />
+    </ProtectedRoute>
+  } 
+/>
                 
-                {/* Protected Routes */}
+                {/* User Protected Routes */}
                 <Route 
                   path="/dashboard" 
                   element={
@@ -68,14 +87,76 @@ function App() {
                   } 
                 />
                 <Route 
-                  path="/forum/create" 
+                  path="/books" 
                   element={
                     <ProtectedRoute>
-                      <CreatePost />
+                      <BookManagement />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/reviews" 
+                  element={
+                    <ProtectedRoute>
+                      <ReviewManagement />
                     </ProtectedRoute>
                   } 
                 />
                 
+                {/* Admin Protected Routes */}
+                <Route 
+                  path="/admin/books" 
+                  element={
+                    <ProtectedRoute requireAdmin={true}>
+                      <BookManagement />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/admin/reviews" 
+                  element={
+                    <ProtectedRoute requireAdmin={true}>
+                      <ReviewManagement />
+                    </ProtectedRoute>
+                  } 
+                />
+
+
+                  <Route 
+                  path="/authors" 
+                  element={
+                    <ProtectedRoute >
+                      <AuthorsManagement />
+                    </ProtectedRoute>
+                  } 
+
+                  
+                />
+
+                  <Route 
+                  path="/support" 
+                  element={
+                    <ProtectedRoute >
+                      <ComplaintsManagement />
+                    </ProtectedRoute>
+                  } 
+                /> 
+                  <Route 
+                  path="/admin/reports" 
+                  element={
+                    <ProtectedRoute >
+                      <ComplaintsManagement />
+                    </ProtectedRoute>
+                  } 
+                  /> 
+                  <Route path="/forum" element={
+                    <ProtectedRoute><Forum /></ProtectedRoute>
+                  } />
+
+                 <Route path="/admin/stats" element={
+                    <ProtectedRoute><Statistics /></ProtectedRoute>
+                  } />
+
                 {/* Fallback Route */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

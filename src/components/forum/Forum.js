@@ -7,7 +7,7 @@ import {
   ListGroup, 
   Alert 
 } from 'react-bootstrap';
-import { useForum } from './context/ForumContext';
+import { useForum } from '../../contexts/ForumContext';
 
 export default function Forum() {
   const { posts, addPost, analytics } = useForum();
