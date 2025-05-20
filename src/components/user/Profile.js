@@ -218,22 +218,10 @@ const Profile = () => {
                   </Col>
                 </Row>
                 
-                {isUser() && (
-                  <Form.Group className="mb-3">
-                    <Form.Label>Progression de lecture</Form.Label>
-                    <Form.Range 
-                      min="0" 
-                      max="100" 
-                      value={profile.readingProgress} 
-                      onChange={(e) => setProfile(prev => ({ ...prev, readingProgress: parseInt(e.target.value) }))}
-                      disabled={!editing}
-                    />
 
-                  </Form.Group>
-                )}
                 
                 <Form.Group className="mb-3">
-                  <Form.Label>Biographie</Form.Label>
+                  <Form.Label>Bio</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={3}

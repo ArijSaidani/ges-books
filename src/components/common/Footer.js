@@ -44,7 +44,7 @@ const Footer = () => {
           <Col md={2}>
             <h6 className="fw-bold mb-3">Aide</h6>
             <ul className="list-unstyled">
-              <li className="mb-2"><Link to="/support" className="text-decoration-none text-muted">Support</Link></li>
+              <li className="mb-2"><Link to="/support" className="text-decoration-none text-muted">Réclamations</Link></li>
             </ul>
           </Col>
         </Row>

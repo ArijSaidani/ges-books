@@ -36,37 +36,37 @@ const Dashboard = () => {
         const allBooks = getAllBooks?.() || [];
         
         if (isAdmin) {
-          // Admin view data
+          // Données vue admin
           setDashboardData({
             booksRead: 0,
             booksInProgress: 0,
             wishlist: 0,
             recentActivities: [
-              { id: 1, user: 'Admin', action: 'Approved', book: 'New Book', date: '2023-08-15' },
-              { id: 2, user: 'John Doe', action: 'Reported', book: 'Book Issue', date: '2023-08-14' }
+              { id: 1, user: 'Admin', action: 'Approuvé', book: 'Nouveau Livre', date: '2023-08-15' },
+              { id: 2, user: 'Jean Dupont', action: 'Signalé', book: 'Problème de livre', date: '2023-08-14' }
             ],
             currentlyReading: [],
             recommendations: [
               { 
                 id: 1, 
-                title: '3 Pending Approvals', 
+                title: '3 Approbations en attente', 
                 type: 'alert', 
                 icon: <FiAlertTriangle />,
-                description: 'New books waiting for approval'
+                description: 'Nouveaux livres en attente de validation'
               },
               { 
                 id: 2, 
-                title: '5 New Users This Week', 
+                title: '5 Nouveaux utilisateurs', 
                 type: 'info', 
                 icon: <FiUsers />,
-                description: 'Recent user signups need verification'
+                description: 'Nouveaux inscrits à vérifier'
               },
               { 
                 id: 3, 
-                title: '2 System Reports', 
+                title: '2 Signalements', 
                 type: 'warning', 
                 icon: <FiFlag />,
-                description: 'Issues reported by users'
+                description: 'Problèmes signalés par les utilisateurs'
               }
             ],
             adminStats: {
@@ -74,31 +74,31 @@ const Dashboard = () => {
               totalBooks: allBooks.length,
               pendingApprovals: 3,
               recentSignups: [
-                { id: 1, name: 'New User 1', date: '2023-08-20', email: 'user1@example.com' },
-                { id: 2, name: 'New User 2', date: '2023-08-19', email: 'user2@example.com' }
+                { id: 1, name: 'Nouvel Utilisateur 1', date: '2023-08-20', email: 'user1@example.com' },
+                { id: 2, name: 'Nouvel Utilisateur 2', date: '2023-08-19', email: 'user2@example.com' }
               ]
             }
           });
         } else {
-          // Regular user view data
+          // Données vue utilisateur
           setDashboardData({
             booksRead: user?.books?.filter(b => b.status === 'completed').length || 12,
             booksInProgress: user?.books?.filter(b => b.status === 'reading').length || 2,
             wishlist: user?.wishlist?.length || 8,
             recentActivities: [
-              { id: 1, action: 'Borrowed', book: 'The Great Gatsby', date: '2023-08-15' },
-              { id: 2, action: 'Returned', book: '1984', date: '2023-08-10' },
-              { id: 3, action: 'Reviewed', book: 'To Kill a Mockingbird', date: '2023-08-05' },
-              { id: 4, action: 'Added to Wishlist', book: 'Dune', date: '2023-08-01' }
+              { id: 1, action: 'Emprunté', book: 'Gatsby le Magnifique', date: '2023-08-15' },
+              { id: 2, action: 'Retourné', book: '1984', date: '2023-08-10' },
+              { id: 3, action: 'Noté', book: 'Ne tirez pas sur l\'oiseau moqueur', date: '2023-08-05' },
+              { id: 4, action: 'Ajouté à la liste', book: 'Dune', date: '2023-08-01' }
             ],
             currentlyReading: user?.books?.filter(b => b.status === 'reading').map(book => ({
               id: book.id,
-              title: allBooks.find(b => b.id === book.id)?.title || 'Unknown Book',
-              author: allBooks.find(b => b.id === book.id)?.author || 'Unknown Author',
+              title: allBooks.find(b => b.id === book.id)?.title || 'Livre inconnu',
+              author: allBooks.find(b => b.id === book.id)?.author || 'Auteur inconnu',
               progress: book.progress || 0
             })) || [
-              { id: 1, title: 'The Hobbit', author: 'J.R.R. Tolkien', progress: 75 },
-              { id: 2, title: 'Pride and Prejudice', author: 'Jane Austen', progress: 30 }
+              { id: 1, title: 'Le Hobbit', author: 'J.R.R. Tolkien', progress: 75 },
+              { id: 2, title: 'Orgueil et Préjugés', author: 'Jane Austen', progress: 30 }
             ],
             recommendations: allBooks.slice(0, 3).map(book => ({
               id: book.id,
@@ -116,7 +116,7 @@ const Dashboard = () => {
           });
         }
       } catch (error) {
-        console.error('Failed to load dashboard data:', error);
+        console.error('Échec du chargement du tableau de bord:', error);
       } finally {
         setLoading(false);
       }
@@ -137,7 +137,7 @@ const Dashboard = () => {
         )
       }));
     } catch (error) {
-      console.error('Progress update failed:', error);
+      console.error('Échec de la mise à jour de la progression:', error);
     }
   };
 
@@ -145,33 +145,33 @@ const Dashboard = () => {
     return (
       <Container className="py-5 text-center">
         <Spinner animation="border" variant="primary" />
-        <p className="mt-3">Loading your dashboard...</p>
+        <p className="mt-3">Chargement de votre tableau de bord...</p>
       </Container>
     );
   }
 
   return (
     <Container className="py-5">
-      {/* Header Section */}
+      {/* En-tête */}
       <Row className="mb-4">
         <Col>
           <h2 className="fw-bold">
-            {isAdmin ? 'Admin Dashboard' : 'Your Reading Dashboard'}
+            {isAdmin ? 'Tableau de bord Admin' : 'Votre tableau de bord de lecture'}
             <Badge bg={isAdmin ? "warning" : "primary"} className="ms-2">
-              {isAdmin ? "Admin Mode" : `${dashboardData.booksRead} Books Read`}
+              {isAdmin ? "Mode Admin" : `${dashboardData.booksRead} Livres lus`}
             </Badge>
           </h2>
         </Col>
       </Row>
 
-      {/* Admin Overview Section */}
+      {/* Section Aperçu Admin */}
       {isAdmin && (
         <Row className="mb-4">
           <Col>
             <Card className="border-warning shadow-sm">
               <Card.Body>
                 <Card.Title className="text-warning d-flex align-items-center">
-                  <FiShield className="me-2" /> System Overview
+                  <FiShield className="me-2" /> Aperçu du système
                 </Card.Title>
                 <Row>
                   <Col md={3} className="mb-3 mb-md-0">
@@ -181,7 +181,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <h4 className="mb-0">{dashboardData.adminStats.totalUsers}</h4>
-                        <small className="text-muted">Total Users</small>
+                        <small className="text-muted">Utilisateurs</small>
                       </div>
                     </div>
                   </Col>
@@ -192,7 +192,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <h4 className="mb-0">{dashboardData.adminStats.totalBooks}</h4>
-                        <small className="text-muted">Library Books</small>
+                        <small className="text-muted">Livres</small>
                       </div>
                     </div>
                   </Col>
@@ -203,7 +203,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <h4 className="mb-0">{dashboardData.adminStats.pendingApprovals}</h4>
-                        <small className="text-muted">Pending Approvals</small>
+                        <small className="text-muted">En attente</small>
                       </div>
                     </div>
                   </Col>
@@ -214,17 +214,17 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <h4 className="mb-0">2</h4>
-                        <small className="text-muted">New Reports</small>
+                        <small className="text-muted">Signalements</small>
                       </div>
                     </div>
                   </Col>
                 </Row>
                 <div className="mt-3 d-flex gap-2">
                   <Button variant="warning" size="sm" as={Link} to="/admin/users">
-                    <FiUsers className="me-1" /> Manage Users
+                    <FiUsers className="me-1" /> Gérer les utilisateurs
                   </Button>
                   <Button variant="warning" size="sm" as={Link} to="/admin/books">
-                    <FiBook className="me-1" /> Manage Books
+                    <FiBook className="me-1" /> Gérer les livres
                   </Button>
                 </div>
               </Card.Body>
@@ -233,21 +233,21 @@ const Dashboard = () => {
         </Row>
       )}
 
-      {/* Stats Cards Section */}
+      {/* Cartes de statistiques */}
       <Row className="mb-4">
         <Col md={4} className="mb-3 mb-md-0">
           <Card className="shadow h-100">
             <Card.Body className="d-flex flex-column">
               <Card.Title className="fw-bold d-flex align-items-center">
                 {isAdmin ? <FiUsers className="me-2" /> : <FiBook className="me-2" />}
-                {isAdmin ? 'Active Users' : 'Books Read'}
+                {isAdmin ? 'Utilisateurs actifs' : 'Livres lus'}
               </Card.Title>
               <div className="d-flex align-items-center justify-content-center flex-grow-1">
                 <div className="text-center">
                   <h1 className="display-4 mb-0">
                     {isAdmin ? dashboardData.adminStats.totalUsers : dashboardData.booksRead}
                   </h1>
-                  <p className="text-muted">{isAdmin ? 'Active' : 'Total'}</p>
+                  <p className="text-muted">{isAdmin ? 'Actifs' : 'Total'}</p>
                 </div>
               </div>
               <Button 
@@ -256,7 +256,7 @@ const Dashboard = () => {
                 as={Link} 
                 to={isAdmin ? "/admin/users" : "/books/read"}
               >
-                View All
+                Voir tout
               </Button>
             </Card.Body>
           </Card>
@@ -267,7 +267,7 @@ const Dashboard = () => {
             <Card.Body className="d-flex flex-column">
               <Card.Title className="fw-bold d-flex align-items-center">
                 <FiBookOpen className="me-2" />
-                {isAdmin ? 'New Books' : 'Currently Reading'}
+                {isAdmin ? 'Nouveaux livres' : 'En cours de lecture'}
               </Card.Title>
               <div className="d-flex align-items-center justify-content-center flex-grow-1">
                 <div className="text-center">
@@ -275,7 +275,7 @@ const Dashboard = () => {
                     {isAdmin ? dashboardData.adminStats.pendingApprovals : dashboardData.booksInProgress}
                   </h1>
                   <p className="text-muted">
-                    {isAdmin ? 'Pending Review' : 'In Progress'}
+                    {isAdmin ? 'En attente' : 'En cours'}
                   </p>
                 </div>
               </div>
@@ -285,7 +285,7 @@ const Dashboard = () => {
                 as={Link} 
                 to={isAdmin ? "/admin/books" : "/books/current"}
               >
-                {isAdmin ? 'Review' : 'View Books'}
+                {isAdmin ? 'Vérifier' : 'Voir les livres'}
               </Button>
             </Card.Body>
           </Card>
@@ -296,7 +296,7 @@ const Dashboard = () => {
             <Card.Body className="d-flex flex-column">
               <Card.Title className="fw-bold d-flex align-items-center">
                 {isAdmin ? <FiFlag className="me-2" /> : <FiHeart className="me-2" />}
-                {isAdmin ? 'Reports' : 'Wishlist'}
+                {isAdmin ? 'Signalements' : 'Liste de souhaits'}
               </Card.Title>
               <div className="d-flex align-items-center justify-content-center flex-grow-1">
                 <div className="text-center">
@@ -304,7 +304,7 @@ const Dashboard = () => {
                     {isAdmin ? 2 : dashboardData.wishlist}
                   </h1>
                   <p className="text-muted">
-                    {isAdmin ? 'New' : 'Saved Books'}
+                    {isAdmin ? 'Nouveaux' : 'Livres sauvegardés'}
                   </p>
                 </div>
               </div>
@@ -314,30 +314,30 @@ const Dashboard = () => {
                 as={Link} 
                 to={isAdmin ? "/admin/reports" : "/books/wishlist"}
               >
-                View All
+                Voir tout
               </Button>
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
-      {/* Main Content Section */}
+      {/* Section principale */}
       <Row className="mb-4">
         <Col lg={8} className="mb-4 mb-lg-0">
           {isAdmin ? (
             <>
-              {/* Admin - Recent Signups */}
+              {/* Admin - Nouveaux inscrits */}
               <Card className="shadow">
                 <Card.Body>
                   <Card.Title className="fw-bold mb-3 d-flex align-items-center">
-                    <FiUsers className="me-2" /> Recent Signups
+                    <FiUsers className="me-2" /> Nouveaux inscrits
                   </Card.Title>
                   <Table responsive>
                     <thead>
                       <tr>
-                        <th>Name</th>
+                        <th>Nom</th>
                         <th>Email</th>
-                        <th>Signup Date</th>
+                        <th>Date d'inscription</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -348,8 +348,8 @@ const Dashboard = () => {
                           <td>{user.email}</td>
                           <td>{user.date}</td>
                           <td>
-                            <Button variant="outline-primary" size="sm" className="me-2">View</Button>
-                            <Button variant="outline-success" size="sm">Approve</Button>
+                            <Button variant="outline-primary" size="sm" className="me-2">Voir</Button>
+                            <Button variant="outline-success" size="sm">Approuver</Button>
                           </td>
                         </tr>
                       ))}
@@ -357,24 +357,24 @@ const Dashboard = () => {
                   </Table>
                   <div className="mt-3">
                     <Button variant="warning" as={Link} to="/admin/users">
-                      View All Users
+                      Voir tous les utilisateurs
                     </Button>
                   </div>
                 </Card.Body>
               </Card>
 
-              {/* Admin - Recent Activities */}
+              {/* Admin - Activités récentes */}
               <Card className="shadow mt-4">
                 <Card.Body>
                   <Card.Title className="fw-bold mb-3 d-flex align-items-center">
-                    <FiActivity className="me-2" /> System Activities
+                    <FiActivity className="me-2" /> Activités système
                   </Card.Title>
                   <Table responsive>
                     <thead>
                       <tr>
-                        <th>User</th>
+                        <th>Utilisateur</th>
                         <th>Action</th>
-                        <th>Item</th>
+                        <th>Élément</th>
                         <th>Date</th>
                       </tr>
                     </thead>
@@ -384,8 +384,8 @@ const Dashboard = () => {
                           <td>{activity.user}</td>
                           <td>
                             <Badge bg={
-                              activity.action === 'Approved' ? 'success' : 
-                              activity.action === 'Reported' ? 'danger' : 'primary'
+                              activity.action === 'Approuvé' ? 'success' : 
+                              activity.action === 'Signalé' ? 'danger' : 'primary'
                             }>
                               {activity.action}
                             </Badge>
@@ -401,11 +401,11 @@ const Dashboard = () => {
             </>
           ) : (
             <>
-              {/* User - Currently Reading */}
+              {/* Utilisateur - Lecture en cours */}
               <Card className="shadow">
                 <Card.Body>
                   <Card.Title className="fw-bold mb-3 d-flex align-items-center">
-                    <FiBookOpen className="me-2" /> Currently Reading
+                    <FiBookOpen className="me-2" /> Lecture en cours
                   </Card.Title>
                   {dashboardData.currentlyReading.length > 0 ? (
                     dashboardData.currentlyReading.map(book => (
@@ -430,36 +430,36 @@ const Dashboard = () => {
                           variant={book.progress > 50 ? "success" : "primary"} 
                           className="mb-1" 
                         />
-                        <small className="text-muted">By {book.author}</small>
+                        <small className="text-muted">Par {book.author}</small>
                       </div>
                     ))
                   ) : (
                     <div className="text-center py-4">
-                      <p className="text-muted">You're not currently reading any books</p>
+                      <p className="text-muted">Vous ne lisez actuellement aucun livre</p>
                       <Button variant="primary" as={Link} to="/books">
-                        Browse Books
+                        Parcourir les livres
                       </Button>
                     </div>
                   )}
                   <div className="mt-3">
                     <Button variant="primary" size="sm" as={Link} to="/books">
-                      Find New Books
+                      Trouver de nouveaux livres
                     </Button>
                   </div>
                 </Card.Body>
               </Card>
 
-              {/* User - Recent Activities */}
+              {/* Utilisateur - Activités récentes */}
               <Card className="shadow mt-4">
                 <Card.Body>
                   <Card.Title className="fw-bold mb-3 d-flex align-items-center">
-                    <FiActivity className="me-2" /> Your Recent Activity
+                    <FiActivity className="me-2" /> Votre activité récente
                   </Card.Title>
                   <Table responsive>
                     <thead>
                       <tr>
                         <th>Action</th>
-                        <th>Book</th>
+                        <th>Livre</th>
                         <th>Date</th>
                       </tr>
                     </thead>
@@ -468,9 +468,9 @@ const Dashboard = () => {
                         <tr key={activity.id}>
                           <td>
                             <Badge bg={
-                              activity.action.includes('Borrowed') ? 'primary' : 
-                              activity.action.includes('Returned') ? 'success' :
-                              activity.action.includes('Reviewed') ? 'info' :
+                              activity.action.includes('Emprunté') ? 'primary' : 
+                              activity.action.includes('Retourné') ? 'success' :
+                              activity.action.includes('Noté') ? 'info' :
                               'secondary'
                             }>
                               {activity.action}
@@ -488,16 +488,16 @@ const Dashboard = () => {
           )}
         </Col>
         
-        {/* Recommendations/Alerts Section */}
+        {/* Section Recommandations/Alertes */}
         <Col lg={4}>
           <Card className="shadow">
             <Card.Body>
               <Card.Title className="fw-bold mb-3 d-flex align-items-center">
                 <FiStar className="me-2" />
-                {isAdmin ? 'System Alerts' : 'Recommended For You'}
+                {isAdmin ? 'Alertes système' : 'Recommandations'}
               </Card.Title>
               {isAdmin ? (
-                // Admin Alerts
+                // Alertes admin
                 dashboardData.recommendations.map(alert => (
                   <div key={alert.id} className="mb-3">
                     <div className="d-flex align-items-start">
@@ -517,7 +517,7 @@ const Dashboard = () => {
                           } 
                           size="sm"
                         >
-                          View Details
+                          Voir détails
                         </Button>
                       </div>
                     </div>
@@ -527,7 +527,7 @@ const Dashboard = () => {
                   </div>
                 ))
               ) : (
-                // User Recommendations with Images
+                // Recommandations utilisateur avec images
                 dashboardData.recommendations.map((book, index) => (
                   <React.Fragment key={book.id}>
                     <div className="mb-3">
@@ -535,11 +535,11 @@ const Dashboard = () => {
                         <div className="me-3" style={{ width: '80px', flexShrink: 0 }}>
                           <img 
                             src={book.image} 
-                            alt={`${book.title} cover`}
+                            alt={`Couverture de ${book.title}`}
                             className="img-fluid rounded shadow-sm"
                             style={{ height: '120px', objectFit: 'cover' }}
                             onError={(e) => {
-                              e.target.src = '/images/default-book-cover.jpg';
+                              e.target.src = 'public/alchemist.webp';
                             }}
                           />
                         </div>
@@ -556,7 +556,7 @@ const Dashboard = () => {
                             as={Link}
                             to={`/books/${book.id}`}
                           >
-                            Preview
+                            Prévisualiser
                           </Button>
                         </div>
                       </div>
@@ -574,7 +574,7 @@ const Dashboard = () => {
                   as={Link} 
                   to={isAdmin ? "/admin/alerts" : "/books/recommendations"}
                 >
-                  {isAdmin ? 'View All Alerts' : 'See More'}
+                  {isAdmin ? 'Voir toutes les alertes' : 'Voir plus'}
                 </Button>
               </div>
             </Card.Body>
@@ -582,29 +582,28 @@ const Dashboard = () => {
         </Col>
       </Row>
 
-      {/* Admin Quick Actions */}
+      {/* Actions rapides admin */}
       {isAdmin && (
         <Row className="mt-4">
           <Col>
             <Card className="shadow border-warning">
               <Card.Body>
                 <Card.Title className="fw-bold text-warning d-flex align-items-center">
-                  <FiCheckCircle className="me-2" /> Quick Actions
+                  <FiCheckCircle className="me-2" /> Actions rapides
                 </Card.Title>
                 <div className="d-flex flex-wrap gap-2">
                   <Button variant="warning" size="sm" as={Link} to="/admin/books">
-                    <FiBook className="me-1" /> Manage Books
+                    <FiBook className="me-1" /> Gérer les livres
                   </Button>
                   <Button variant="warning" size="sm" as={Link} to="/admin/users">
-                    <FiUsers className="me-1" /> Manage Users
+                    <FiUsers className="me-1" /> Gérer les utilisateurs
                   </Button>
                   <Button variant="warning" size="sm" as={Link} to="/admin/reports">
-                    <FiFlag className="me-1" /> View Reports
+                    <FiFlag className="me-1" /> Voir les signalements
                   </Button>
                   <Button variant="warning" size="sm" as={Link} to="/admin/stats">
-                    <FiBarChart2 className="me-1" /> View Statistics
+                    <FiBarChart2 className="me-1" /> Statistiques
                   </Button>
-
                 </div>
               </Card.Body>
             </Card>

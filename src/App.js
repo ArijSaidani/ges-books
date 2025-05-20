@@ -174,15 +174,15 @@ const Home = () => (
   <div className="home-container">
     <img 
       src="/home_img.jpg" 
-      alt="Library Management" 
+      alt="Gestion de bibliothèque" 
       className="home-image"
     />
     <div className="home-overlay"></div>
     <div className="home-content">
-      <h1 className="home-title">Welcome to <span className="highlight">BiblioTech</span></h1>
+      <h1 className="home-title">Bienvenue sur <span className="highlight">BiblioTech</span></h1>
       <p className="home-subtitle">
-        Your digital library. Discover new books, track your reading progress, 
-        and connect with other readers.
+        Votre bibliothèque numérique. Découvrez de nouveaux livres, suivez votre progression de lecture,
+        et connectez-vous avec d'autres lecteurs.
       </p>
     </div>
   </div>
