@@ -26,9 +26,6 @@ import ReviewManagement from './components/ReviewManagement/ReviewManagement';
 
 // Forum Components
 
-import CreatePost from './components/forum/CreatePost';
-
-
 import Forum from './components/forum/Forum';
 
 //stats component
