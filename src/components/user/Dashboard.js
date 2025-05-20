@@ -12,16 +12,16 @@ const Dashboard = () => {
   const { user, updateReadingProgress, getAllBooks } = useAuth();
   const [loading, setLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState({
-    booksRead: 0,
+    booksRead: 12,
     booksInProgress: 0,
     wishlist: 0,
     recentActivities: [],
     currentlyReading: [],
     recommendations: [],
     adminStats: {
-      totalUsers: 0,
-      totalBooks: 0,
-      pendingApprovals: 0,
+      totalUsers: 1875,
+      totalBooks: 20147,
+      pendingApprovals: 3,
       recentSignups: []
     }
   });
