@@ -13,7 +13,7 @@ const Navigation = () => {
     navigate('/login');
   };
   
-  // Generate initials from user name
+  // Générer les initiales à partir du nom d'utilisateur
   const getInitials = () => {
     if (!currentUser) return 'U';
     
@@ -23,9 +23,9 @@ const Navigation = () => {
     return (firstInitial + lastInitial).toUpperCase();
   };
   
-  // Get user full name
+  // Obtenir le nom complet de l'utilisateur
   const getUserName = () => {
-    if (!currentUser) return 'User';
+    if (!currentUser) return 'Utilisateur';
     
     return `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
   };
@@ -36,7 +36,7 @@ const Navigation = () => {
         <Navbar.Brand as={Link} to="/" className="fw-bold d-flex align-items-center">
           <img
             src="/logo.png"
-            alt="BiblioTech Logo"
+            alt="Logo BiblioTech"
             className="navbar-logo me-2"
             width="40"
             height="40"
@@ -46,9 +46,9 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/books">Browse Books</Nav.Link>
-            <Nav.Link as={Link} to="/authors">Authors</Nav.Link>
+            <Nav.Link as={Link} to="/">Accueil</Nav.Link>
+            <Nav.Link as={Link} to="/books">Livres</Nav.Link>
+            <Nav.Link as={Link} to="/authors">Auteurs</Nav.Link>
             <Nav.Link as={Link} to="/forum">Forum</Nav.Link>
           </Nav>
           
@@ -59,7 +59,7 @@ const Navigation = () => {
                 <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center">
                   <Image
                     src="/profile_img.jpg"
-                    alt="Profile"
+                    alt="Profil"
                     roundedCircle
                     className="nav-profile-img me-2"
                     width="32"
@@ -69,16 +69,16 @@ const Navigation = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/profile">My Profile</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/profile">Mon profil</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Déconnexion</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
           ) : (
             <div>
-              <Button as={Link} to="/login" variant="outline-primary" className="me-2">Log In</Button>
-              <Button as={Link} to="/signup" variant="primary">Sign Up</Button>
+              <Button as={Link} to="/login" variant="outline-primary" className="me-2">Connexion</Button>
+              <Button as={Link} to="/signup" variant="primary">Inscription</Button>
             </div>
           )}
 
@@ -89,4 +89,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;

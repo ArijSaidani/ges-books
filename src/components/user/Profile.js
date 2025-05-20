@@ -11,7 +11,7 @@ import {
   Spinner,
   Badge
 } from 'react-bootstrap';
-import { useAuth } from '../../contexts/AuthContext'; // Adjust the import path as needed
+import { useAuth } from '../../contexts/AuthContext'; // Ajustez le chemin d'importation selon vos besoins
 
 const Profile = () => {
   const { 
@@ -37,14 +37,14 @@ const Profile = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
   
-  // Initialize profile with user data
+  // Initialiser le profil avec les données utilisateur
   useEffect(() => {
     if (user) {
       setProfile({
         firstName: user.firstName || '',
         lastName: user.lastName || '',
         email: user.email || '',
-        bio: user.bio || 'Tell us about yourself...',
+        bio: user.bio || 'Parlez-nous de vous...',
         readingProgress: user.readingProgress || 0,
         favoriteGenres: user.favoriteGenres || []
       });
@@ -74,40 +74,40 @@ const Profile = () => {
     try {
       const result = await updateProfile(profile);
       if (result.success) {
-        setSuccess('Profile updated successfully!');
+        setSuccess('Profil mis à jour avec succès !');
         setEditing(false);
       } else {
-        setError(result.error || 'Failed to update profile');
+        setError(result.error || 'Échec de la mise à jour du profil');
       }
     } catch (err) {
-      setError('Failed to update profile');
+      setError('Échec de la mise à jour du profil');
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Show loading state while auth is being checked
+  // Afficher l'état de chargement pendant la vérification de l'authentification
   if (authLoading) {
     return (
       <Container className="py-5 text-center">
         <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <span className="visually-hidden">Chargement...</span>
         </Spinner>
       </Container>
     );
   }
 
-  // Show login prompt if not authenticated
+  // Demander la connexion si non authentifié
   if (!authLoading && !user) {
     return (
       <Container className="py-5">
-        <Alert variant="info">Please log in to view your profile</Alert>
+        <Alert variant="info">Veuillez vous connecter pour voir votre profil</Alert>
       </Container>
     );
   }
 
-  const allGenres = ['Fiction', 'Non-Fiction', 'Science Fiction', 'Fantasy', 'Mystery', 'Romance', 'Thriller', 'Biography'];
+  const allGenres = ['Fiction', 'Non-Fiction', 'Science-Fiction', 'Fantasy', 'Mystère', 'Romance', 'Thriller', 'Biographie'];
 
   return (
     <Container className="py-5">
@@ -117,17 +117,17 @@ const Profile = () => {
             <Card.Body>
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                  <h2 className="fw-bold mb-0">My Profile</h2>
+                  <h2 className="fw-bold mb-0">Mon Profil</h2>
                   {isAdmin() && <Badge bg="danger" className="ms-2">Admin</Badge>}
                 </div>
                 {!editing ? (
                   <Button variant="primary" onClick={() => setEditing(true)}>
-                    Edit Profile
+                    Modifier le profil
                   </Button>
                 ) : (
                   <Button variant="secondary" onClick={() => {
                     setEditing(false);
-                    // Reset to user data when cancelling
+                    // Réinitialiser avec les données utilisateur lors de l'annulation
                     setProfile({
                       firstName: user.firstName || '',
                       lastName: user.lastName || '',
@@ -137,7 +137,7 @@ const Profile = () => {
                       favoriteGenres: user.favoriteGenres || []
                     });
                   }}>
-                    Cancel
+                    Annuler
                   </Button>
                 )}
               </div>
@@ -154,7 +154,7 @@ const Profile = () => {
                       className="mb-3"
                       width="150"
                       height="150"
-                      alt="Profile"
+                      alt="Photo de profil"
                     />
                     {editing && (
                       <div>
@@ -170,7 +170,7 @@ const Profile = () => {
                           className="mt-2"
                           onClick={() => document.getElementById('profilePictureUpload').click()}
                         >
-                          Change Photo
+                          Changer la photo
                         </Button>
                       </div>
                     )}
@@ -179,7 +179,7 @@ const Profile = () => {
                     <Row>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Label>First Name</Form.Label>
+                          <Form.Label>Prénom</Form.Label>
                           <Form.Control
                             type="text"
                             name="firstName"
@@ -192,7 +192,7 @@ const Profile = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Label>Last Name</Form.Label>
+                          <Form.Label>Nom</Form.Label>
                           <Form.Control
                             type="text"
                             name="lastName"
@@ -220,7 +220,7 @@ const Profile = () => {
                 
                 {isUser() && (
                   <Form.Group className="mb-3">
-                    <Form.Label>Reading Progress</Form.Label>
+                    <Form.Label>Progression de lecture</Form.Label>
                     <Form.Range 
                       min="0" 
                       max="100" 
@@ -228,14 +228,12 @@ const Profile = () => {
                       onChange={(e) => setProfile(prev => ({ ...prev, readingProgress: parseInt(e.target.value) }))}
                       disabled={!editing}
                     />
-                    <div className="text-center">
-                      <Badge bg="primary">{profile.readingProgress}%</Badge>
-                    </div>
+
                   </Form.Group>
                 )}
                 
                 <Form.Group className="mb-3">
-                  <Form.Label>Bio</Form.Label>
+                  <Form.Label>Biographie</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={3}
@@ -243,12 +241,12 @@ const Profile = () => {
                     value={profile.bio}
                     onChange={handleChange}
                     disabled={!editing}
-                    placeholder="Tell us about yourself..."
+                    placeholder="Parlez-nous de vous..."
                   />
                 </Form.Group>
                 
                 <Form.Group className="mb-3">
-                  <Form.Label>Favorite Genres</Form.Label>
+                  <Form.Label>Genres préférés</Form.Label>
                   <div className="d-flex flex-wrap gap-2">
                     {allGenres.map(genre => (
                       <Form.Check
@@ -272,7 +270,7 @@ const Profile = () => {
                       variant="success" 
                       disabled={loading}
                     >
-                      {loading ? 'Saving...' : 'Save Changes'}
+                      {loading ? 'Enregistrement...' : 'Enregistrer les modifications'}
                     </Button>
                   </div>
                 )}
@@ -282,21 +280,21 @@ const Profile = () => {
           
           <Card className="shadow mt-4">
             <Card.Body>
-              <h4 className="fw-bold mb-3">Account Settings</h4>
+              <h4 className="fw-bold mb-3">Paramètres du compte</h4>
               <div className="d-flex flex-wrap gap-2">
                 <Button variant="outline-primary" className="me-2 mb-2">
-                  Change Password
+                  Changer le mot de passe
                 </Button>
                 <Button 
                   variant="outline-danger" 
                   className="mb-2"
                   onClick={() => {
-                    if (window.confirm('Are you sure you want to logout?')) {
+                    if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
                       logout();
                     }
                   }}
                 >
-                  Logout
+                  Déconnexion
                 </Button>
               </div>
             </Card.Body>

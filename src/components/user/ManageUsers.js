@@ -33,7 +33,7 @@ const ManageUsers = () => {
         setUsers(users.map(u => 
           u.id === userId ? { ...u, role: newRole } : u
         ));
-        setSuccess('User role updated successfully');
+        setSuccess('Rôle utilisateur mis à jour avec succès');
       }
     } catch (err) {
       setError(err.message);
@@ -43,14 +43,14 @@ const ManageUsers = () => {
   };
 
   const handleDeleteUser = async (userId) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
+    if (window.confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
       try {
         setLoading(true);
         setError(null);
         const result = await deleteUser(userId);
         if (result.success) {
           setUsers(users.filter(u => u.id !== userId));
-          setSuccess('User deleted successfully');
+          setSuccess('Utilisateur supprimé avec succès');
         }
       } catch (err) {
         setError(err.message);
@@ -70,7 +70,7 @@ const ManageUsers = () => {
 
   return (
     <Container className="py-5">
-      <h2 className="mb-4">Manage Users</h2>
+      <h2 className="mb-4">Gestion des utilisateurs</h2>
       
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
@@ -79,9 +79,9 @@ const ManageUsers = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Nom</th>
             <th>Email</th>
-            <th>Role</th>
+            <th>Rôle</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -95,11 +95,11 @@ const ManageUsers = () => {
                 <select
                   value={userItem.role}
                   onChange={(e) => handleRoleChange(userItem.id, e.target.value)}
-                  disabled={userItem.id === user?.id} // Don't let admins change their own role
+                  disabled={userItem.id === user?.id} // Empêche les admins de modifier leur propre rôle
                   className="form-select"
                 >
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
+                  <option value="admin">Administrateur</option>
+                  <option value="user">Utilisateur</option>
                 </select>
               </td>
               <td>
@@ -107,9 +107,9 @@ const ManageUsers = () => {
                   variant="danger"
                   size="sm"
                   onClick={() => handleDeleteUser(userItem.id)}
-                  disabled={userItem.id === user?.id} // Don't let admins delete themselves
+                  disabled={userItem.id === user?.id} // Empêche les admins de se supprimer eux-mêmes
                 >
-                  Delete
+                  Supprimer
                 </Button>
               </td>
             </tr>

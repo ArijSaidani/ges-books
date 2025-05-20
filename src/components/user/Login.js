@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate, useLocation,Link} from 'react-router-dom';
-import { Form, Button, Card, Alert, Container,} from 'react-bootstrap';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 
 function Login() {
   const [email, setEmail] = useState('admin@bibliotech.com');
@@ -21,7 +21,7 @@ function Login() {
       await login(email, password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message || 'Failed to sign in');
+      setError(err.message || 'Échec de la connexion');
     }
   };
 
@@ -30,7 +30,7 @@ function Login() {
       <div className="w-100" style={{ maxWidth: "400px" }}>
         <Card className="shadow">
           <Card.Body>
-            <h2 className="text-center mb-4 fw-bold">Log In</h2>
+            <h2 className="text-center mb-4 fw-bold">Connexion</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group id="email" className="mb-3">
@@ -43,7 +43,7 @@ function Login() {
                 />
               </Form.Group>
               <Form.Group id="password" className="mb-4">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Mot de passe</Form.Label>
                 <Form.Control 
                   type="password" 
                   required 
@@ -52,16 +52,16 @@ function Login() {
                 />
               </Form.Group>
               <Button disabled={loading} className="w-100 mb-3" type="submit">
-                Log In
+                Se connecter
               </Button>
             </Form>
             <div className="text-center mt-3">
-              <Link to="/forgot-password">Forgot Password?</Link>
+              <Link to="/forgot-password">Mot de passe oublié ?</Link>
             </div>
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/signup">Sign Up</Link>
+          Pas de compte ? <Link to="/signup">S'inscrire</Link>
         </div>
       </div>
     </Container>

@@ -28,7 +28,7 @@ const SignUp = () => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      return setError('Passwords do not match');
+      return setError('Les mots de passe ne correspondent pas');
     }
     
     try {
@@ -45,10 +45,10 @@ const SignUp = () => {
       if (result.success) {
         navigate('/login');
       } else {
-        setError(result.error || 'Failed to create an account');
+        setError(result.error || 'Échec de la création du compte');
       }
     } catch (err) {
-      setError('Failed to create an account');
+      setError('Échec de la création du compte');
       console.error(err);
     } finally {
       setLoading(false);
@@ -60,11 +60,11 @@ const SignUp = () => {
       <div className="w-100" style={{ maxWidth: "400px" }}>
         <Card className="shadow">
           <Card.Body>
-            <h2 className="text-center mb-4 fw-bold">Sign Up</h2>
+            <h2 className="text-center mb-4 fw-bold">Inscription</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
-                <Form.Label>First Name</Form.Label>
+                <Form.Label>Prénom</Form.Label>
                 <Form.Control
                   type="text"
                   name="firstName"
@@ -75,7 +75,7 @@ const SignUp = () => {
               </Form.Group>
               
               <Form.Group className="mb-3">
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label>Nom</Form.Label>
                 <Form.Control
                   type="text"
                   name="lastName"
@@ -97,7 +97,7 @@ const SignUp = () => {
               </Form.Group>
               
               <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                   type="password"
                   name="password"
@@ -108,7 +108,7 @@ const SignUp = () => {
               </Form.Group>
               
               <Form.Group className="mb-4">
-                <Form.Label>Confirm Password</Form.Label>
+                <Form.Label>Confirmer le mot de passe</Form.Label>
                 <Form.Control
                   type="password"
                   name="confirmPassword"
@@ -119,17 +119,17 @@ const SignUp = () => {
               </Form.Group>
               
               <Button disabled={loading} className="w-100" type="submit">
-                Sign Up
+                {loading ? 'Inscription en cours...' : 'S\'inscrire'}
               </Button>
             </Form>
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-          Already have an account? <Link to="/login">Log In</Link>
+          Vous avez déjà un compte ? <Link to="/login">Se connecter</Link>
         </div>
       </div>
     </Container>
   );
 };
 
-export default SignUp; 
+export default SignUp;
